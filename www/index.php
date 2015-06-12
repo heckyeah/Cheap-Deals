@@ -38,6 +38,14 @@ switch( $_GET['page'] ) {
 		$page = new ContactPage( $model );
 	break;
 
+	case 'register':
+		require 'classes/models/RegistrationModel.php';
+		require 'classes/views/RegistrationPage.php';
+
+		$model = new RegistrationModel();
+		$page = new RegistrationPage( $model );
+	break;
+
 	// 404
 	default:
 		require 'classes/models/Error404Model.php';
