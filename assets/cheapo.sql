@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 12, 2015 at 05:25 am
+-- Generation Time: Jun 15, 2015 at 05:25 am
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Email` varchar(255) NOT NULL,
   `Privilege` enum('user','admin') NOT NULL,
   `CreationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `users`
@@ -65,7 +65,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`ID`, `Username`, `Password`, `Email`, `Privilege`, `CreationDate`) VALUES
 (1, 'admin', 'admin', 'admin@admin.com', 'admin', '2015-06-12 02:45:48'),
-(2, 'user', 'user', 'user@user.com', 'user', '2015-06-12 02:46:48');
+(2, 'user', 'user', 'user@user.com', 'user', '2015-06-12 02:46:48'),
+(3, 'benabbott', '$2y$10$g4yhEBDumIRwzd/UDxjTcuVBNMQLsXYt0THdPNDeV2iyNPGkrKnNm', 'ben.abbott@yoobee.ac.nz', 'user', '2015-06-15 02:46:53'),
+(4, 'benabbott2', '$2y$10$gE04nIJ.eR59ybzLSojQKOa8szW3ssexlsXl.fbbqrBSS25eWrhMC', 'ben.abbott2@yoobee.ac.nz', 'user', '2015-06-15 03:05:49'),
+(5, 'iambatman', '$2y$10$1bu4BVtg3TQ76DufFK1kr.jRM/IL4In04Ekz.D5V8hyN0zsQZFo3G', 'bat@cave.com', 'user', '2015-06-15 03:20:09');
 
 --
 -- Indexes for dumped tables
@@ -96,7 +99,7 @@ MODIFY `ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `ID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `ID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

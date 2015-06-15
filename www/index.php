@@ -1,5 +1,8 @@
 <?php
 
+// Start the session
+session_start();
+
 // Determine what page the user wants
 $_GET['page'] = isset($_GET['page']) ? $_GET['page'] : 'home';
 

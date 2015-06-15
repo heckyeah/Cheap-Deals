@@ -36,7 +36,18 @@
               </div>
             </form>
           </li>
-          <li class="has-dropdown"><a href="index.php?page=account">Account</a>
+          <?php
+
+            // If the user is logged in then show their username in link
+            // Otherwise just show "account"
+            if( isset($_SESSION['username']) ) {
+              $text = $_SESSION['username'];
+            } else {
+              $text = 'Account';
+            }
+
+          ?>
+          <li class="has-dropdown"><a href="index.php?page=account"><?php echo $text; ?></a>
             <ul class="dropdown">
               <li><a href="index.php?page=register">Register</a></li>
               <li><a href="index.php?page=login">Login</a></li>
