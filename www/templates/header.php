@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title><?php echo $this->model->title; ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<?php echo $this->model->description; ?>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -49,11 +50,29 @@
           ?>
           <li class="has-dropdown"><a href="index.php?page=account"><?php echo $text; ?></a>
             <ul class="dropdown">
-              <li><a href="index.php?page=register">Register</a></li>
-              <li><a href="index.php?page=login">Login</a></li>
+            <?php
+
+              // If the user is not logged in
+              if( !isset($_SESSION['username']) ) : ?>
+                <li><a href="index.php?page=register">Register</a></li>
+                <li><a href="index.php?page=login">Login</a></li>
+              <?php else: ?>
+                <li><a href="index.php?page=logout">Logout</a></li>
+              <?php endif;
+
+            ?>
+              
+              
             </ul>
           </li>
         </ul>
       </section>
     </nav>
   </div>
+
+
+
+
+
+
+

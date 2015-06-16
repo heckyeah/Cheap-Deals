@@ -49,6 +49,30 @@ switch( $_GET['page'] ) {
 		$page = new RegistrationPage( $model );
 	break;
 
+	case 'account':
+		require 'classes/models/AccountModel.php';
+		require 'classes/views/AccountPage.php';
+
+		$model = new AccountModel();
+		$page = new AccountPage( $model );
+	break;
+
+	case 'logout':
+		require 'classes/models/LogoutModel.php';
+		require 'classes/views/LogoutPage.php';
+
+		$model = new LogoutModel();
+		$page = new LogoutPage( $model );
+	break;
+
+	case 'login':
+		require 'classes/models/LoginModel.php';
+		require 'classes/views/LoginPage.php';
+
+		$model = new LoginModel();
+		$page = new LoginPage( $model );
+	break;
+
 	// 404
 	default:
 		require 'classes/models/Error404Model.php';

@@ -8,16 +8,10 @@ class RegistrationPage extends Page {
 	private $email;
 	private $emailError;
 	private $passwordError;
-	private $registrationSuccess = false;
 
 	public function contentHTML() {
 
-		if( !$this->registrationSuccess ) {
-			include 'templates/registrationform.php';
-		} else {
-			echo 'Success!';
-		}
-		
+		include 'templates/registrationform.php';
 
 	}
 
@@ -76,7 +70,9 @@ class RegistrationPage extends Page {
 		if( $this->usernameError == '' && $this->emailError == '' && $this->passwordError == '' ) {
 
 			$this->model->registerNewAccount( $uName, $email, $pass1 );
-			$this->registrationSuccess = true;
+			
+			// Redirect the user
+			header('Location: index.php?page=account');
 
 		}
 
