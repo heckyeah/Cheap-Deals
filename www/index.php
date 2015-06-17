@@ -7,7 +7,7 @@ session_start();
 $_GET['page'] = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Require the page class
-require 'classes/Page.php';
+require 'classes/views/Page.php';
 
 // Require the Model class
 require 'classes/models/Model.php';
@@ -18,7 +18,7 @@ switch( $_GET['page'] ) {
 	// Home
 	case 'home':
 		require 'classes/models/HomeModel.php';
-		require 'classes/HomePage.php';
+		require 'classes/views/HomePage.php';
 
 		$model = new HomeModel();
 		$page = new HomePage( $model );
@@ -76,7 +76,7 @@ switch( $_GET['page'] ) {
 	// 404
 	default:
 		require 'classes/models/Error404Model.php';
-		require 'classes/Error404Page.php';
+		require 'classes/views/Error404Page.php';
 		$model = new Error404Model();
 		$page = new Error404Page( $model );
 	break;
