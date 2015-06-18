@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 16, 2015 at 05:26 am
+-- Generation Time: Jun 18, 2015 at 02:04 am
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`ID`, `Username`, `Password`, `Email`, `Privilege`, `CreationDate`) VALUES
-(1, 'admin', '$2y$10$NRQpGzOZGz6V3aC4vBL5NOzHCC7YITH0fTIFYSIXJsjZLrqxXLcDe', 'admin@admin.com', 'admin', '2015-06-12 02:45:48'),
+(1, 'admin', '$2y$10$SME8qgIrG2G3HRey4ts5IOG.4Wm0Lrh74lhNlS29Ya3JwlTVkku9.', 'admin@admin.com', 'admin', '2015-06-12 02:45:48'),
 (2, 'user', '$2y$10$dWiQqS3gYLW6AgxjsfBiZ.Wi64qhf1TmZLXQsdhTY3Drip5AsEWam', 'user@user.com', 'user', '2015-06-12 02:46:48'),
 (3, 'benabbott', '$2y$10$g4yhEBDumIRwzd/UDxjTcuVBNMQLsXYt0THdPNDeV2iyNPGkrKnNm', 'ben.abbott@yoobee.ac.nz', 'user', '2015-06-15 02:46:53'),
 (4, 'benabbott2', '$2y$10$gE04nIJ.eR59ybzLSojQKOa8szW3ssexlsXl.fbbqrBSS25eWrhMC', 'ben.abbott2@yoobee.ac.nz', 'user', '2015-06-15 03:05:49'),
