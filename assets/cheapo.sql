@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 18, 2015 at 02:04 am
+-- Generation Time: Jun 18, 2015 at 05:22 am
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -59,20 +59,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Password` varchar(60) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Privilege` enum('user','admin') NOT NULL,
-  `CreationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `CreationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Active` enum('enabled','disabled') NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`ID`, `Username`, `Password`, `Email`, `Privilege`, `CreationDate`) VALUES
-(1, 'admin', '$2y$10$SME8qgIrG2G3HRey4ts5IOG.4Wm0Lrh74lhNlS29Ya3JwlTVkku9.', 'admin@admin.com', 'admin', '2015-06-12 02:45:48'),
-(2, 'user', '$2y$10$dWiQqS3gYLW6AgxjsfBiZ.Wi64qhf1TmZLXQsdhTY3Drip5AsEWam', 'user@user.com', 'user', '2015-06-12 02:46:48'),
-(3, 'benabbott', '$2y$10$g4yhEBDumIRwzd/UDxjTcuVBNMQLsXYt0THdPNDeV2iyNPGkrKnNm', 'ben.abbott@yoobee.ac.nz', 'user', '2015-06-15 02:46:53'),
-(4, 'benabbott2', '$2y$10$gE04nIJ.eR59ybzLSojQKOa8szW3ssexlsXl.fbbqrBSS25eWrhMC', 'ben.abbott2@yoobee.ac.nz', 'user', '2015-06-15 03:05:49'),
-(5, 'iambatman', '$2y$10$1bu4BVtg3TQ76DufFK1kr.jRM/IL4In04Ekz.D5V8hyN0zsQZFo3G', 'bat@cave.com', 'user', '2015-06-15 03:20:09'),
-(6, 'test', '$2y$10$L8Cp/tIkBz7cpRnDHk8/Vud2ky.ffvatNCJgWpna2cKhRd/udgDNm', 'test@test.com', 'user', '2015-06-16 00:33:47');
+INSERT INTO `users` (`ID`, `Username`, `Password`, `Email`, `Privilege`, `CreationDate`, `Active`) VALUES
+(1, 'admin', '$2y$10$6dLRRpCJO3czpm9l15qQhu9fd2ZBjh8Zp.UrSDbOW4gS2MkuBYxY2', 'admin@admin.com', 'admin', '2015-06-12 02:45:48', 'enabled'),
+(2, 'user', '$2y$10$dWiQqS3gYLW6AgxjsfBiZ.Wi64qhf1TmZLXQsdhTY3Drip5AsEWam', 'user@user.com', 'user', '2015-06-12 02:46:48', 'enabled'),
+(3, 'benabbott', '$2y$10$g4yhEBDumIRwzd/UDxjTcuVBNMQLsXYt0THdPNDeV2iyNPGkrKnNm', 'ben.abbott@yoobee.ac.nz', 'user', '2015-06-15 02:46:53', 'disabled'),
+(7, 'iambatman', '$2y$10$Hd8Azz60VmyyrebrmcYL.Okd.Hpp4qw0Shh1WM0gDgL4Y.rffw./y', 'ben.abbott@yoobee.ac.nzz', 'user', '2015-06-18 03:13:58', 'disabled');
 
 --
 -- Indexes for dumped tables
@@ -103,7 +102,7 @@ MODIFY `ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `ID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `ID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

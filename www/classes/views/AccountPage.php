@@ -7,6 +7,7 @@ class AccountPage extends Page {
 	private $newPasswordError;
 	private $confirmPasswordError;
 	private $passwordChangeMessage;
+	private $userDeleteError;
 
 	public function __construct($model) {
 		parent::__construct($model);
@@ -15,6 +16,17 @@ class AccountPage extends Page {
 		if( isset($_POST['existing-password']) ) {
 			$this->processPasswordChange();
 		}
+
+		// If user is an admin
+		if( isset($_SESSION['privilege']) && $_SESSION['privilege'] == 'admin' ) {
+
+			// If the admin submitted the delete function
+			if( isset($_POST['delete-account']) ) {
+				$this->processDeleteAccount();
+			}
+
+		}
+		
 	}
 	
 	public function contentHTML() {
@@ -75,6 +87,24 @@ class AccountPage extends Page {
 				$this->passwordChangeMessage = 'Something went wrong updating your password...';
 			}
 
+		}
+
+	}
+
+	private function processDeleteAccount() {
+
+		// Get the username to delete from the form
+		$username = $_POST['username'];
+
+		// If the username is the same as the person who is logged in
+		if( $username == $_SESSION['username'] ) {
+			$this->userDeleteError = 'You cannot delete your own account!';
+		}
+
+		// If no errors
+		if( $this->userDeleteError == '' ) {
+			// Send it to the model for deleting
+			$this->model->deleteAccount($username);
 		}
 
 	}

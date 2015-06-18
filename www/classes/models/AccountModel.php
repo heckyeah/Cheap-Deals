@@ -4,7 +4,7 @@ class AccountModel extends Model {
 
 	public function getAllUsernames() {
 
-		return $this->dbc->query( "SELECT Username FROM users" );
+		return $this->dbc->query( "SELECT Username, Privilege, Active FROM users" );
 
 	}
 
@@ -52,6 +52,17 @@ class AccountModel extends Model {
 		} else {
 			return false;
 		}
+	}
+
+	public function deleteAccount($username) {
+
+		// Filter the username
+		$username = $this->dbc->real_escape_string($username);
+
+		//$this->dbc->query("DELETE FROM users WHERE Username = '$username'");
+		$this->dbc->query("	UPDATE users 
+							SET Active = 'disabled'
+							WHERE Username = '$username'");
 	}
 
 }
