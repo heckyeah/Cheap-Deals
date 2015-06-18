@@ -40,20 +40,25 @@ class AccountPage extends Page {
 
 	private function processPasswordChange() {
 
+		// Make life easier
+		$existingPass = $_POST['existing-password'];
+		$newPass      = $_POST['new-password'];
+		$confirmPass  = $_POST['confirm-password'];
+
 		// Validate
-		if( strlen($_POST['existing-password']) == 0 ) {
+		if( strlen($existingPass) == 0 ) {
 			$this->existingPasswordError = 'Required';
-		} elseif( !$this->model->checkPassword($_POST['existing-password']) ) {
+		} elseif( !$this->model->checkPassword($existingPass) ) {
 			$this->existingPasswordError = 'Incorrect password';
 		}
 
-		if( strlen($_POST['new-password']) < 8 ) {
+		if( strlen($newPass) < 8 ) {
 			$this->newPasswordError = 'Needs to be more than 8 characters';
 		}
 
-		if( strlen($_POST['confirm-password']) < 8 ) {
+		if( strlen($confirmPass) < 8 ) {
 			$this->confirmPasswordError = 'Needs to be more than 8 characters';
-		} elseif( $_POST['confirm-password'] != $_POST['new-password'] ) {
+		} elseif( $confirmPass != $newPass ) {
 			$this->confirmPasswordError = 'Does not match the new password';
 		}
 
