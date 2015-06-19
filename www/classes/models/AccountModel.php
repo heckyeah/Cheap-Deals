@@ -65,6 +65,39 @@ class AccountModel extends Model {
 							WHERE Username = '$username'");
 	}
 
+	public function enableAccount( $username ) {
+		$username = $this->dbc->real_escape_string($username);
+
+		$this->dbc->query(" UPDATE users
+							SET Active = 'enabled'
+							WHERE Username = '$username'");
+	}
+
+	public function addNewStaff() {
+
+		// Extract the data from the form and filter too
+		$firstName = $this->dbc->real_escape_string( $_POST['first-name'] );
+		$lastName  = $this->dbc->real_escape_string( $_POST['last-name'] );
+		$bio       = $this->dbc->real_escape_string( $_POST['bio'] );
+		$jobTitle  = $this->dbc->real_escape_string( $_POST['job-title'] );
+		$image     = $this->dbc->real_escape_string( $_POST['profile-image'] );
+
+		$image = 'http://placehold.it/320x180'; // DELETE ONCE IMAGE UPLOAD WORKS
+
+		// Prepare SQL to insert the new staff member
+		$sql = "INSERT INTO staff VALUES (  NULL,
+											'$firstName',
+											'$lastName',
+											'$bio',
+											'$image',
+											'$jobTitle'
+											) ";
+		
+		// Run the query
+		$this->dbc->query($sql);
+
+	}
+
 }
 
 

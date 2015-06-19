@@ -8,6 +8,9 @@ class AccountPage extends Page {
 	private $confirmPasswordError;
 	private $passwordChangeMessage;
 	private $userDeleteError;
+	private $userEnableError;
+	private $userEnableSuccess;
+	private $userDeleteSuccess;
 
 	public function __construct($model) {
 		parent::__construct($model);
@@ -23,6 +26,16 @@ class AccountPage extends Page {
 			// If the admin submitted the delete function
 			if( isset($_POST['delete-account']) ) {
 				$this->processDeleteAccount();
+			}
+
+			// If the admin submitted the enable function
+			if( isset($_POST['enable-account']) ) {
+				$this->processEnableAccount();
+			}
+
+			// If the admin has submitted the add staff form
+			if( isset($_POST['add-staff']) ) {
+				$this->processAddStaff();
 			}
 
 		}
@@ -105,7 +118,35 @@ class AccountPage extends Page {
 		if( $this->userDeleteError == '' ) {
 			// Send it to the model for deleting
 			$this->model->deleteAccount($username);
+			$this->userDeleteSuccess = 'Successfully disabled the account!';
 		}
+
+	}
+
+	private function processEnableAccount() {
+
+		// Validation
+		if( isset($_POST['username']) ) {
+			$username = $_POST['username'];
+		} else {
+			$this->userEnableError = 'No username selected!';
+		}
+
+		// If there are no errors
+		if( $this->userEnableError == '' ) {
+			$this->model->enableAccount($username);
+			$this->userEnableSuccess = 'Successfully enabled the account!';
+		}
+		
+	}
+
+	private function processAddStaff() {
+
+		// Validate the form and make sure the user has provided all the appropriate fields
+
+
+		$this->model->addNewStaff();
+
 
 	}
 
