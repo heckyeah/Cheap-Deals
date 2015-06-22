@@ -11,6 +11,7 @@ class AccountPage extends Page {
 	private $userEnableError;
 	private $userEnableSuccess;
 	private $userDeleteSuccess;
+	private $profileImageError;
 
 	public function __construct($model) {
 		parent::__construct($model);
@@ -144,9 +145,36 @@ class AccountPage extends Page {
 
 		// Validate the form and make sure the user has provided all the appropriate fields
 
+		// Make life easier
+		$file      = $_FILES['profile-image'];
+		$imageName = $file['name'];
+		$imageType = $file['type'];
 
-		$this->model->addNewStaff();
+		// If the user has not provided an image
+		if( $imageName == '' ) {
+			$this->profileImageError = 'Required!';
+		} else {
 
+			// Require the image upload class
+			require 'vendor/ImageUploader.php';
+
+			// Instantiate (create) the class
+			$imageUploader = new ImageUploader();
+
+			// Upload the image and make sure all went well
+			$result = $imageUploader->upload( 'profile-image', 'img/staff/' );
+
+			// If something went wrong
+			if( !$result ) {
+				$this->profileImageError = $imageUploader->errorMessage;
+			}
+
+		}
+
+		// If there are no errors then insert a new staff member!
+		if( $this->profileImageError == '' ) {
+			$this->model->addNewStaff();
+		}
 
 	}
 

@@ -80,7 +80,7 @@ class AccountModel extends Model {
 		$lastName  = $this->dbc->real_escape_string( $_POST['last-name'] );
 		$bio       = $this->dbc->real_escape_string( $_POST['bio'] );
 		$jobTitle  = $this->dbc->real_escape_string( $_POST['job-title'] );
-		$image     = $this->dbc->real_escape_string( $_POST['profile-image'] );
+		$image     = $this->dbc->real_escape_string( $_FILES['profile-image']['name'] );
 
 		$image = 'http://placehold.it/320x180'; // DELETE ONCE IMAGE UPLOAD WORKS
 

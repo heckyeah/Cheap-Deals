@@ -74,7 +74,7 @@
 <div class="row">
 	<div class="columns">
 		<h2>Add new Staff Member</h2>
-		<form action="index.php?page=account" method="post">
+		<form action="index.php?page=account" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="medium-4 columns">
 					<label for="first-name">First Name: </label>
@@ -94,7 +94,11 @@
 				</div>
 				<div class="medium-6 columns">
 					<label for="profile-image">Proile Image: </label>
+					<input type="hidden" name="MAX_FILE_SIZE" value="5000000">
 					<input type="file" class="button tiny" name="profile-image" id="profile-image">
+					<?php
+						errorMessage($this->profileImageError);
+					?>
 				</div>
 				<div class="columns">
 					<input type="submit" class="button tiny" value="Add new staff member" name="add-staff">
