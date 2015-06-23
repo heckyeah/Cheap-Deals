@@ -13,6 +13,15 @@ class AccountPage extends Page {
 	private $userDeleteSuccess;
 	private $profileImageError;
 
+	private $firstName;
+	private $firstNameError;
+	private $lastName;
+	private $lastNameError;
+	private $bio;
+	private $bioError;
+	private $job;
+	private $jobError;
+
 	public function __construct($model) {
 		parent::__construct($model);
 
@@ -143,17 +152,52 @@ class AccountPage extends Page {
 
 	private function processAddStaff() {
 
+		// Make forms sticky
+		$this->firstName = trim($_POST['first-name']);
+		$this->lastName  = trim($_POST['last-name']);
+		$this->bio       = trim($_POST['bio']);
+		$this->job       = trim($_POST['job-title']);
+
 		// Validate the form and make sure the user has provided all the appropriate fields
+		if( strlen($this->firstName) < 2 ) {
+			$this->firstNameError = 'Name must be at least 2 characters';
+		} elseif( strlen($this->firstName) > 20 ) {
+			$this->firstNameError = 'Name must be at most 20 characters';
+		} elseif( !preg_match('/^[a-zA-Z-]{2,20}$/', $this->firstName) ) {
+			$this->firstNameError = 'Only allowed letters and hyphens. No spaces.';
+		}
+
+		if( strlen($this->lastName) < 2 ) {
+			$this->lastNameError = 'Name must be at least 2 characters';
+		} elseif( strlen($this->lastName) > 20 ) {
+			$this->lastNameError = 'Name must be at most 20 characters';
+		} elseif( !preg_match('/^[a-zA-Z-]{2,20}$/', $this->lastName) ) {
+			$this->lastNameError = 'Only allowed letters and hyphens. No spaces.';
+		}
+
+		if( strlen($this->bio) > 200 ) {
+			$this->bioError = 'Bio must be at most 200 characters. You have gone over by '.(strlen($this->bio) - 200);
+		} elseif( !preg_match('/^[\w.\-\s]{2,200}$/', $this->bio ) ) {
+			$this->bioError = 'Only allowed letters, hyphens, spaces and full stops.';
+		}
+
+		if( strlen($this->job) > 30 ) {
+			$this->jobError = 'Job must be at most 30 characters. You have '.strlen($this->job);
+		} elseif( !preg_match('/^[\w\-\s\.]{2,30}$/', $this->job) ) {
+			$this->jobError = 'Only allowed letters, hyphens, spaces and full stops.';
+		}
 
 		// Make life easier
 		$file      = $_FILES['profile-image'];
 		$imageName = $file['name'];
-		$imageType = $file['type'];
 
 		// If the user has not provided an image
 		if( $imageName == '' ) {
 			$this->profileImageError = 'Required!';
-		} else {
+		} elseif( 	$this->firstNameError == ''
+					&& $this->lastNameError == ''
+					&& $this->bioError == ''
+					&& $this->jobError == '' ) {
 
 			// Require the image upload class
 			require 'vendor/ImageUploader.php';
@@ -161,19 +205,23 @@ class AccountPage extends Page {
 			// Instantiate (create) the class
 			$imageUploader = new ImageUploader();
 
+			$fileName = $_POST['first-name'].'-'.$_POST['last-name'];
+
 			// Upload the image and make sure all went well
-			$result = $imageUploader->upload( 'profile-image', 'img/staff/' );
+			$result = $imageUploader->upload( 'profile-image', 'img/staff/', $fileName );
 
 			// If something went wrong
 			if( !$result ) {
 				$this->profileImageError = $imageUploader->errorMessage;
+			} else {
+				$newImage = $imageUploader->getImageName();
 			}
 
-		}
+			// If there are no errors then insert a new staff member!
+			if( $this->profileImageError == '' ) {
+				$this->model->addNewStaff( $newImage );
+			}
 
-		// If there are no errors then insert a new staff member!
-		if( $this->profileImageError == '' ) {
-			$this->model->addNewStaff();
 		}
 
 	}

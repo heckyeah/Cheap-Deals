@@ -13,9 +13,11 @@ class ImageUploader {
 	public $errorMessage;
 	private $imageTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
+	// Function to send back the name of the image
+	public function getImageName() { return $this->imageName; }
 
 	// Methods (functions)
-	public function upload( $inputName, $destination ) {
+	public function upload( $inputName, $destination, $newFileName='' ) {
 	
 		// Extract the information about the image
 		$this->imageName  = $_FILES[$inputName]['name'];
@@ -57,10 +59,30 @@ class ImageUploader {
 
 		// Generate a unique ID to be used on the file name
 		$unique = uniqid('', true);
-		$this->imageName = $unique.$this->imageName;
+
+		// If a new file name has been provided
+		if( $newFileName == '' ) {
+			$this->imageName = $unique.$this->imageName;
+		} else {
+			// Get the file extension of the image
+			$fileExtension = pathinfo($this->imageName, PATHINFO_EXTENSION);
+
+			$this->imageName = $unique.$newFileName.'.'.$fileExtension;
+		}
 
 		// Move the image from the temp location to the final destination
-		move_uploaded_file($this->imageTemp, $this->destination.$this->imageName);
+		@move_uploaded_file($this->imageTemp, $this->destination.$this->imageName);
+
+		// If the file did not make it to the final destination
+		if( !file_exists( $this->destination.$this->imageName ) ) {
+			$this->errorMessage = 'Could not move image to final destination. Permissions?';
+			return false;
+		}
+
+		// Everything is done!
+		return true;
+
+
 
 	}
 

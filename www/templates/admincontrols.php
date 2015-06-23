@@ -78,19 +78,23 @@
 			<div class="row">
 				<div class="medium-4 columns">
 					<label for="first-name">First Name: </label>
-					<input type="text" name="first-name" id="first-name" placeholder="Bruce">
+					<input type="text" name="first-name" id="first-name" value="<?php echo $this->firstName; ?>" placeholder="Bruce">
+					<?php errorMessage($this->firstNameError); ?>
 				</div>
 				<div class="medium-4 columns">
 					<label for="last-name">Last Name: </label>
-					<input type="text" name="last-name" id="last-name" placeholder="Wayne">
+					<input type="text" name="last-name" id="last-name" value="<?php echo $this->lastName; ?>" placeholder="Wayne">
+					<?php errorMessage($this->lastNameError); ?>
 				</div>
 				<div class="medium-4 columns">
 					<label for="job-title">Job Title: </label>
-					<input type="text" name="job-title" id="job-title" placeholder="Crimefighter">
+					<input type="text" name="job-title" id="job-title" value="<?php echo $this->job; ?>" placeholder="Crimefighter">
+				
 				</div>
 				<div class="medium-6 columns">
 					<label for="bio">Bio: </label>
-					<textarea name="bio" id="bio" rows="4" cols="20"></textarea>
+					<textarea name="bio" id="bio" rows="4" cols="20"><?php echo $this->bio; ?></textarea>
+					<?php errorMessage($this->bioError); ?>
 				</div>
 				<div class="medium-6 columns">
 					<label for="profile-image">Proile Image: </label>

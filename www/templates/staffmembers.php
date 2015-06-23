@@ -13,7 +13,7 @@
 		// Loop through each staff member and present them in HTML
 		while( $row = $allStaff->fetch_assoc() ) : ?>
 			<div class="medium-4 large-3 columns">
-				<img src="<?php echo $row['ProfileImage']; ?>">
+				<img src="img/staff/<?php echo $row['ProfileImage']; ?>">
 				<h2><?php echo $row['FirstName'].' '.$row['LastName']; ?></h2>
 				<p><?php echo $row['Bio']; ?></p>
 			</div>

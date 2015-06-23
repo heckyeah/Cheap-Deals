@@ -73,16 +73,16 @@ class AccountModel extends Model {
 							WHERE Username = '$username'");
 	}
 
-	public function addNewStaff() {
+	public function addNewStaff( $imageName ) {
 
 		// Extract the data from the form and filter too
 		$firstName = $this->dbc->real_escape_string( $_POST['first-name'] );
 		$lastName  = $this->dbc->real_escape_string( $_POST['last-name'] );
 		$bio       = $this->dbc->real_escape_string( $_POST['bio'] );
 		$jobTitle  = $this->dbc->real_escape_string( $_POST['job-title'] );
-		$image     = $this->dbc->real_escape_string( $_FILES['profile-image']['name'] );
+		$image     = $this->dbc->real_escape_string( $imageName );
 
-		$image = 'http://placehold.it/320x180'; // DELETE ONCE IMAGE UPLOAD WORKS
+		//$image = 'http://placehold.it/320x180'; // DELETE ONCE IMAGE UPLOAD WORKS
 
 		// Prepare SQL to insert the new staff member
 		$sql = "INSERT INTO staff VALUES (  NULL,

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 19, 2015 at 05:08 am
+-- Generation Time: Jun 23, 2015 at 05:43 am
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -58,18 +58,17 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `FirstName` varchar(20) NOT NULL,
   `LastName` varchar(20) NOT NULL,
   `Bio` varchar(200) NOT NULL,
-  `ProfileImage` varchar(50) NOT NULL,
+  `ProfileImage` varchar(100) NOT NULL,
   `Job` varchar(30) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `staff`
 --
 
 INSERT INTO `staff` (`ID`, `FirstName`, `LastName`, `Bio`, `ProfileImage`, `Job`) VALUES
-(1, 'Ben', 'Abbott', 'Ben is the lead developer of Cheap Deals for students.', 'http://placehold.it/320x180', 'Lead Developer'),
-(2, 'Billy', 'Bob', 'Billy Bob is the Lead Designer of Cheap Deals for Students.', 'http://placehold.it/320x180', 'Lead Designer'),
-(4, 'Bruce', 'Wayne', 'I am a BAT!', 'http://placehold.it/320x180', 'The Batman');
+(17, 'Michael', 'Bay', '', '5588b5b6c11d19.92257239Michael-Bay.jpg', ''),
+(20, 'TESt', 'Account', 'test', '5588d5da813249.48450538TESt-Account.png', 'test');
 
 -- --------------------------------------------------------
 
@@ -132,7 +131,7 @@ MODIFY `ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-MODIFY `ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `users`
 --
