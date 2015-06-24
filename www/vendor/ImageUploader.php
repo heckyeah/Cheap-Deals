@@ -17,7 +17,7 @@ class ImageUploader {
 	public function getImageName() { return $this->imageName; }
 
 	// Methods (functions)
-	public function upload( $inputName, $destination, $newFileName='' ) {
+	public function upload( $inputName, $destination, $newFileName='', $newWidth=0 ) {
 	
 		// Extract the information about the image
 		$this->imageName  = $_FILES[$inputName]['name'];
@@ -82,8 +82,45 @@ class ImageUploader {
 		// Everything is done!
 		return true;
 
+	}
 
+	public function resize($originalFileLocation, $newWidth) {
+
+		// Get the mime type
+		switch(mime_content_type($originalFileLocation)) {
+
+			case 'image/jpeg':
+				$originalImage = imagecreatefromjpeg( $originalFileLocation );
+			break;
+
+			case 'image/png':
+				$originalImage = imagecreatefrompng( $originalFileLocation );
+			break;
+
+			case 'image/gif':
+				$originalImage = imagecreatefromgif( $originalFileLocation );
+			break;
+
+			default:
+				die('NOT AN IMAGE!!!');
+			break;
+
+		}
+
+		
 
 	}
 
+
+
+
+
+
+
+
+
 }
+
+
+
+

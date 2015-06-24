@@ -22,6 +22,9 @@ class AccountPage extends Page {
 	private $job;
 	private $jobError;
 
+	private $staffErrorMessage;
+	private $staffSuccessMessage;
+
 	public function __construct($model) {
 		parent::__construct($model);
 
@@ -205,21 +208,31 @@ class AccountPage extends Page {
 			// Instantiate (create) the class
 			$imageUploader = new ImageUploader();
 
-			$fileName = $_POST['first-name'].'-'.$_POST['last-name'];
+			// Make a new file name based on the staff members name
+			$fileName = $this->firstName.'-'.$this->lastName;
 
 			// Upload the image and make sure all went well
-			$result = $imageUploader->upload( 'profile-image', 'img/staff/', $fileName );
+			$result = $imageUploader->upload( 'profile-image', 'img/staff/original/', $fileName );
 
 			// If something went wrong
 			if( !$result ) {
 				$this->profileImageError = $imageUploader->errorMessage;
 			} else {
 				$newImage = $imageUploader->getImageName();
+				$imageUploader->resize( 'img/staff/original/'.$newImage, 320);
 			}
 
 			// If there are no errors then insert a new staff member!
 			if( $this->profileImageError == '' ) {
-				$this->model->addNewStaff( $newImage );
+				$result = $this->model->addNewStaff( $newImage );
+
+				// If success
+				if( $result ) {
+					$this->staffSuccessMessage = 'Success!';
+				} else {
+					$this->staffErrorMessage = 'Something went wrong in the database :(';
+				}
+
 			}
 
 		}

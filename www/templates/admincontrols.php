@@ -106,6 +106,14 @@
 				</div>
 				<div class="columns">
 					<input type="submit" class="button tiny" value="Add new staff member" name="add-staff">
+					<?php
+						errorMessage($this->staffErrorMessage);
+					
+						// If there is a message to display
+						$this->foundationAlert($this->staffSuccessMessage, 'success');
+						
+						
+					?>
 				</div>
 			</div>
 		</form>

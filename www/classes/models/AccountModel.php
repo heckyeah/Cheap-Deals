@@ -96,6 +96,13 @@ class AccountModel extends Model {
 		// Run the query
 		$this->dbc->query($sql);
 
+		// Make sure the insert actually worked
+		if( $this->dbc->affected_rows == 0 ) {
+			return false; // Failed
+		} else {
+			return true; // Success
+		}
+
 	}
 
 }
