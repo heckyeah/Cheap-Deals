@@ -219,7 +219,7 @@ class AccountPage extends Page {
 				$this->profileImageError = $imageUploader->errorMessage;
 			} else {
 				$newImage = $imageUploader->getImageName();
-				$imageUploader->resize( 'img/staff/original/'.$newImage, 320);
+				$imageUploader->resize( 'img/staff/original/'.$newImage, 320, 'img/staff/thumbnails/', $newImage );
 			}
 
 			// If there are no errors then insert a new staff member!

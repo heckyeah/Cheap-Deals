@@ -17,7 +17,7 @@ class ImageUploader {
 	public function getImageName() { return $this->imageName; }
 
 	// Methods (functions)
-	public function upload( $inputName, $destination, $newFileName='', $newWidth=0 ) {
+	public function upload( $inputName, $destination, $newFileName='' ) {
 	
 		// Extract the information about the image
 		$this->imageName  = $_FILES[$inputName]['name'];
@@ -84,10 +84,12 @@ class ImageUploader {
 
 	}
 
-	public function resize($originalFileLocation, $newWidth) {
+	public function resize($originalFileLocation, $newWidth, $destination, $imageName) {
+
+		$mime = mime_content_type($originalFileLocation);
 
 		// Get the mime type
-		switch(mime_content_type($originalFileLocation)) {
+		switch( $mime ) {
 
 			case 'image/jpeg':
 				$originalImage = imagecreatefromjpeg( $originalFileLocation );
@@ -107,20 +109,52 @@ class ImageUploader {
 
 		}
 
-		
+		// Get the height of the original image
+		$dimensions = getimagesize($originalFileLocation);
+
+		// Extract the image dimensions
+		$originalWidth  = $dimensions[0];
+		$originalHeight = $dimensions[1];
+
+		// Caluclate a new height
+		$newHeight = ($originalHeight / $originalWidth) * $newWidth;
+
+		// Create a brand new image
+		$newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+		// Copy the original image data onto this new smaller image
+		imagecopyresampled( $newImage,
+							$originalImage,
+							0,
+							0,
+							0,
+							0,
+							$newWidth,
+							$newHeight,
+							$originalWidth,
+							$originalHeight );
+
+		// Create a file based on the new image
+		switch( $mime ) {
+
+			case 'image/jpeg':
+				imagejpeg($newImage, $destination.$imageName, 80);
+			break;
+
+			case 'image/png':
+				imagepng($newImage, $destination.$imageName, 9);
+			break;
+
+			case 'image/gif':
+				imagegif($newImage, $destination.$imageName);
+			break;
+
+		}
+
+		// Delete any trace of the image from the server memory
+		imagedestroy($originalImage);
+		imagedestroy($newImage);
 
 	}
 
-
-
-
-
-
-
-
-
 }
-
-
-
-
