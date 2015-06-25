@@ -36,8 +36,10 @@ class AccountModel extends Model {
 		// Get the username of the person logged in
 		$username = $_SESSION['username'];
 
-		// Hash the new password
+		// Require the password compat library
 		require 'vendor/password.php';
+
+		// Hash the new password
 		$hashedPassword = password_hash($_POST['new-password'], PASSWORD_BCRYPT);
 
 		// Prepare UPDATE SQL
@@ -66,8 +68,10 @@ class AccountModel extends Model {
 	}
 
 	public function enableAccount( $username ) {
+		// Filter the username
 		$username = $this->dbc->real_escape_string($username);
 
+		// Run the query
 		$this->dbc->query(" UPDATE users
 							SET Active = 'enabled'
 							WHERE Username = '$username'");
@@ -81,8 +85,6 @@ class AccountModel extends Model {
 		$bio       = $this->dbc->real_escape_string( $_POST['bio'] );
 		$jobTitle  = $this->dbc->real_escape_string( $_POST['job-title'] );
 		$image     = $this->dbc->real_escape_string( $imageName );
-
-		//$image = 'http://placehold.it/320x180'; // DELETE ONCE IMAGE UPLOAD WORKS
 
 		// Prepare SQL to insert the new staff member
 		$sql = "INSERT INTO staff VALUES (  NULL,
@@ -106,9 +108,3 @@ class AccountModel extends Model {
 	}
 
 }
-
-
-
-
-
-

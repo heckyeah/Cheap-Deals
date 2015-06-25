@@ -2,8 +2,6 @@
 
 class HomePage extends Page {
 
-	// Properties
-
 	// Methods
 	public function contentHTML() {
 

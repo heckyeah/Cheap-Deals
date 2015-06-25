@@ -2,8 +2,6 @@
 
 class LogoutPage extends Page {
 
-	// Properties
-
 	public function __construct( $model ) {
 
 		parent::__construct( $model );

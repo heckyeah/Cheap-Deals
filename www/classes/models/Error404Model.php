@@ -2,6 +2,4 @@
 
 class Error404Model extends Model {
 
-	
-
 }

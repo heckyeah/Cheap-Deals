@@ -42,14 +42,6 @@ class RegistrationModel extends Model {
 		// If there is a result from the database
 		return $result->num_rows ? true : false;
 
-		// if( $result->num_rows ) {
-		// 	// Email in use
-		// 	return true;
-		// } else {
-		// 	// Email NOT in use
-		// 	return false;
-		// }
-
 	}
 
 	public function registerNewAccount( $username, $email, $password ) {
@@ -78,13 +70,4 @@ class RegistrationModel extends Model {
 
 	}
 
-
-
-
 }
-
-
-
-
-
-

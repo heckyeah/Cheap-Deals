@@ -2,8 +2,6 @@
 
 class Error404Page extends Page {
 
-	// Properties
-
 	// Methods
 	public function contentHTML() {
 

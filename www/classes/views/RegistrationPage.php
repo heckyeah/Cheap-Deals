@@ -79,12 +79,3 @@ class RegistrationPage extends Page {
 	}
 
 }
-
-
-
-
-
-
-
-
-

@@ -6,10 +6,8 @@ session_start();
 // Determine what page the user wants
 $_GET['page'] = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-// Require the page class
+// Require some classes
 require 'classes/views/Page.php';
-
-// Require the Model class
 require 'classes/models/Model.php';
 
 // Switch based on requested page
@@ -84,9 +82,3 @@ switch( $_GET['page'] ) {
 
 // Load the content
 $page->buildHTML();
-
-
-
-
-
-

@@ -240,12 +240,3 @@ class AccountPage extends Page {
 	}
 
 }
-
-
-
-
-
-
-
-
-
