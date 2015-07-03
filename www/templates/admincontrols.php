@@ -120,7 +120,247 @@
 	</div>
 </div>
 
+<div class="row" id="add-deal">
+	<div class="columns">
+		<h2>Add a new Deal</h2>
+		<form action="index.php?page=account#add-deal" method="post" enctype="multipart/form-data">
+			<div class="row">
+				<div class="large-6 columns">
+					<div class="row">
+						<div class="columns">
+							<label for="deal-name">Deal Name: </label>
+							<input type="text" name="deal-name" placeholder="Cheap pizza" id="deal-name">
+						</div>
+						<div class="columns">
+							<label for="business">Business: </label>
+							<select name="business">
+								<?php
+									// Get all the businesses
+									$result = $this->model->getAllBusinesses();
 
+									// Loop through the results
+									while( $row = $result->fetch_assoc() ) {
+
+										echo '<option value="'.$row['id'].'">';
+										echo $row['BusinessName'];
+										echo '</option>';
+
+									}
+
+								?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="large-6 columns">
+					<label for="description">Deal Description: </label>
+					<textarea name="description" id="description" cols="30" rows="5"></textarea>
+				</div>
+			</div>
+			
+			
+			<div class="row">
+				<div class="large-6 columns">
+					<h3>Deal Starts</h3>
+					<div class="row">
+						<div class="large-2 columns">
+							<label for="start-day">Day: </label>
+							<select name="start-day" id="start-day">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+								<option>9</option>
+								<option>10</option>
+								<option>11</option>
+								<option>12</option>
+								<option>13</option>
+								<option>14</option>
+								<option>15</option>
+								<option>16</option>
+								<option>17</option>
+								<option>18</option>
+								<option>19</option>
+								<option>20</option>
+								<option>21</option>
+								<option>22</option>
+								<option>23</option>
+								<option>24</option>
+								<option>25</option>
+								<option>26</option>
+								<option>27</option>
+								<option>28</option>
+								<option>29</option>
+								<option>30</option>
+								<option>31</option>
+							</select>
+						</div>
+
+						<div class="large-2 columns">
+							<label for="start-month">Month</label>
+							<select name="start-month" id="start-month" >
+								<option value="1">Jan</option>
+								<option value="2">Feb</option>
+								<option value="3">Mar</option>
+								<option value="4">Apr</option>
+								<option value="5">May</option>
+								<option value="6">Jun</option>
+								<option value="7">Jul</option>
+								<option value="8">Aug</option>
+								<option value="9">Sep</option>
+								<option value="10">Oct</option>
+								<option value="11">Nov</option>
+								<option value="12">Dec</option>
+							</select>
+						</div>
+
+						<div class="large-2 columns">
+							<label for="start-year">Year</label>
+							<select name="start-year" id="start-year" required>
+								<option>2015</option>
+								<option>2016</option>
+								<option>2017</option>
+								<option>2018</option>
+							</select>
+						</div>
+
+						<div class="large-2 columns">
+							<label for="start-hour">Hour</label>
+							<input value="12" type="number" name="start-hour" id="start-hour" min="0" max="23">
+						</div>
+						<div class="large-2 columns">
+							<label for="start-minute">Minute</label>
+							<input value="00" type="number" name="start-minute" id="start-minute" min="0" max="59">
+						</div>
+						<div class="large-2 columns">
+							<label for="start-second">Second</label>
+							<input value="00" type="number" name="start-second" id="start-second" min="0" max="59">
+						</div>
+					</div>
+				</div>
+				<div class="large-6 columns">
+					<h3>Deal Ends: </h3>
+					<div class="row">
+						<div class="large-2 columns">
+							<label for="end-day">Day: </label>
+							<select name="end-day" id="end-day">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+								<option>9</option>
+								<option>10</option>
+								<option>11</option>
+								<option>12</option>
+								<option>13</option>
+								<option>14</option>
+								<option>15</option>
+								<option>16</option>
+								<option>17</option>
+								<option>18</option>
+								<option>19</option>
+								<option>20</option>
+								<option>21</option>
+								<option>22</option>
+								<option>23</option>
+								<option>24</option>
+								<option>25</option>
+								<option>26</option>
+								<option>27</option>
+								<option>28</option>
+								<option>29</option>
+								<option>30</option>
+								<option>31</option>
+							</select>
+						</div>
+
+						<div class="large-2 columns">
+							<label for="end-month">Month</label>
+							<select name="end-month" id="end-month" >
+								<option value="1">Jan</option>
+								<option value="2">Feb</option>
+								<option value="3">Mar</option>
+								<option value="4">Apr</option>
+								<option value="5">May</option>
+								<option value="6">Jun</option>
+								<option value="7">Jul</option>
+								<option value="8">Aug</option>
+								<option value="9">Sep</option>
+								<option value="10">Oct</option>
+								<option value="11">Nov</option>
+								<option value="12">Dec</option>
+							</select>
+						</div>
+
+						<div class="large-2 columns">
+							<label for="end-year">Year</label>
+							<select name="end-year" id="end-year" required>
+								<option>2015</option>
+								<option>2016</option>
+								<option>2017</option>
+								<option>2018</option>
+							</select>
+						</div>
+
+						<div class="large-2 columns">
+							<label for="end-hour">Hour</label>
+							<input value="12" type="number" name="end-hour" id="end-hour" min="0" max="23">
+						</div>
+						<div class="large-2 columns">
+							<label for="end-minute">Minute</label>
+							<input value="00" type="number" name="end-minute" id="end-minute" min="0" max="59">
+						</div>
+						<div class="large-2 columns">
+							<label for="end-second">Second</label>
+							<input value="00" type="number" name="end-second" id="end-second" min="0" max="59">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns">
+					<div class="row collapse">
+						<label for="original-price">Original Price: </label>
+						<div class="small-3 columns">
+							<span class="prefix">$</span>
+						</div>
+						<div class="small-9 columns">
+							<input type="number" name="original-price" step="any">
+						</div>
+					</div>
+				</div>
+				<div class="large-3 columns">
+					<div class="row collapse">
+						<label for="discounted-price">Discounted Price: </label>
+						<div class="small-3 columns">
+							<span class="prefix">$</span>
+						</div>
+						<div class="small-9 columns">
+							<input type="number" name="discounted-price" step="any">
+						</div>
+					</div>
+				</div>
+				<div class="large-3 columns">
+					<label for="code">Coupon Code: </label>
+					<input type="text" id="code" placeholder="freepopcorn" name="coupon-code">
+				</div>
+				<div class="large-3 columns">
+					<label for="image">Image: </label>
+					<input type="file" id="image" class="button tiny" name="image">
+				</div>
+			</div>
+			<input type="submit" class="button tiny" value="Add new deal!" name="add-deal">
+		</form>
+	</div>
+</div>
 
 
 

@@ -51,6 +51,11 @@ class AccountPage extends Page {
 				$this->processAddStaff();
 			}
 
+			// If the add deal form has been submitted
+			if( isset($_POST['add-deal']) ) {
+				$this->processAddDeal();
+			}
+
 		}
 		
 	}
@@ -236,6 +241,15 @@ class AccountPage extends Page {
 			}
 
 		}
+
+	}
+
+	private function processAddDeal() {
+
+		// Validation
+
+		// Add the deal
+		$this->model->addNewDeal();
 
 	}
 

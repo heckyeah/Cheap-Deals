@@ -107,4 +107,60 @@ class AccountModel extends Model {
 
 	}
 
+	public function getAllBusinesses() {
+
+		return $this->dbc->query("SELECT name AS BusinessName, id FROM businesses ORDER BY BusinessName");
+
+	}
+
+	public function addNewDeal() {
+
+		// Filter the data
+		$dealName   = $this->dbc->real_escape_string($_POST['deal-name']);
+		$businessID = $this->dbc->real_escape_string($_POST['business']);
+		$description= $this->dbc->real_escape_string($_POST['description']);
+
+		$startDay 	= $this->dbc->real_escape_string($_POST['start-day']);
+		$startMonth	= $this->dbc->real_escape_string($_POST['start-month']);
+		$startYear 	= $this->dbc->real_escape_string($_POST['start-year']);
+		$startHour 	= $this->dbc->real_escape_string($_POST['start-hour']);
+		$startMinute= $this->dbc->real_escape_string($_POST['start-minute']);
+		$startSecond= $this->dbc->real_escape_string($_POST['start-second']);
+
+		$endDay 	= $this->dbc->real_escape_string($_POST['end-day']);
+		$endMonth	= $this->dbc->real_escape_string($_POST['end-month']);
+		$endYear 	= $this->dbc->real_escape_string($_POST['end-year']);
+		$endHour 	= $this->dbc->real_escape_string($_POST['end-hour']);
+		$endMinute  = $this->dbc->real_escape_string($_POST['end-minute']);
+		$endSecond  = $this->dbc->real_escape_string($_POST['end-second']);
+
+		$originalPrice   = $this->dbc->real_escape_string($_POST['original-price']);
+		$discountedPrice = $this->dbc->real_escape_string($_POST['discounted-price']);
+		$couponCode 	 = $this->dbc->real_escape_string($_POST['coupon-code']);
+		//$image 	 		 = $this->dbc->real_escape_string($_FILES['image']);
+		
+		// Prepare the dates and times
+		$startDate 	= "$startYear-$startMonth-$startDay $startHour:$startMinute:$startSecond";
+		$endDate 	= "$endYear-$endMonth-$endDay $endHour:$endMinute:$endSecond";
+		
+		// Prepare the SQL
+		$sql = "INSERT INTO deals
+				VALUES (	NULL,
+							'$dealName',
+							$originalPrice,
+							$discountedPrice,
+							'image.jpg',
+							'$startDate',
+							'$endDate',
+							'$description',
+							'$couponCode',
+							$businessID
+						)";
+
+		$this->dbc->query($sql);
+
+	}
+
+
+
 }
