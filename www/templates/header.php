@@ -26,7 +26,8 @@
           <li><a href="index.php?page=about">About Us</a></li>
           <li><a href="index.php?page=contact">Contact Us</a></li>
           <li class="show-for-large-up">
-            <form action="index.php?page=search" method="get">
+            <form action="index.php" method="get">
+              <input type="hidden" name="page" value="search">
               <div class="row collapse">
                 <div class="medium-8 columns">
                   <input type="search" name="query">
@@ -37,17 +38,32 @@
               </div>
             </form>
           </li>
+
+          <?php 
+            $result = $this->model->getAdditionalInfo();
+            if ( $result->num_rows == 1 ) {
+            $data = $result->fetch_assoc();
+
+            $image  = $data['ProfileImage'];
+            
+            } else {
+              $image  = 'default.png';
+            }
+          ?>
+
           <?php
 
             // If the user is logged in then show their username in link
             // Otherwise just show "account"
             if( isset($_SESSION['username']) ) {
-              $text = $_SESSION['username'];
+              $avatar = '<img src="img/profile-images/icon/'.$image.'" alt=""> ';
+              $text = $avatar.$_SESSION['username'];
             } else {
               $text = 'Account';
             }
 
           ?>
+
           <li class="has-dropdown"><a href="index.php?page=account"><?php echo $text; ?></a>
             <ul class="dropdown">
             <?php

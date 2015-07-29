@@ -71,6 +71,24 @@ switch( $_GET['page'] ) {
 		$page = new LoginPage( $model );
 	break;
 
+	case 'deal':
+
+		require 'classes/views/DealPage.php';
+		require 'classes/models/DealModel.php';
+
+		$model = new DealModel();
+		$page = new DealPage( $model );
+	break;
+
+	case 'search':
+
+		require 'classes/views/SearchPage.php';
+		require 'classes/models/SearchModel.php';
+
+		$model = new SearchModel();
+		$page = new SearchPage( $model );
+	break;
+
 	// 404
 	default:
 		require 'classes/models/Error404Model.php';

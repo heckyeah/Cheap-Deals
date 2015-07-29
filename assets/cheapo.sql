@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 02, 2015 at 05:02 am
+-- Generation Time: Jul 03, 2015 at 05:18 am
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -90,7 +90,7 @@ INSERT INTO `business_locations` (`id`, `business_id`, `location_id`) VALUES
 CREATE TABLE IF NOT EXISTS `categories` (
 `id` tinyint(3) unsigned NOT NULL,
   `category` varchar(23) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `categories`
@@ -98,7 +98,9 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 INSERT INTO `categories` (`id`, `category`) VALUES
 (3, 'Education'),
-(1, 'Hospitality and Tourism');
+(4, 'Food'),
+(1, 'Hospitality and Tourism'),
+(5, 'Wine');
 
 -- --------------------------------------------------------
 
@@ -137,15 +139,16 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `description` varchar(2000) NOT NULL,
   `code` varchar(40) NOT NULL,
   `businessID` smallint(5) unsigned NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `deals`
 --
 
 INSERT INTO `deals` (`id`, `name`, `original_price`, `discounted_price`, `image`, `start_date`, `end_date`, `description`, `code`, `businessID`) VALUES
-(1, 'Free stationary', '100.00', '0.00', 'image.jpg', '2015-07-02 02:40:11', '2015-08-05 12:00:00', 'Get free stationary!', 'freebee', 2),
-(2, 'Half price desk chairs', '50.00', '25.00', 'chair.jpg', '2015-07-02 02:42:08', '2015-08-13 04:20:39', 'Cheap chairs', 'ch3aps3ats', 1);
+(1, 'Free stationary', '100.00', '0.00', 'image.jpg', '2001-12-11 11:00:00', '2015-08-05 12:00:00', 'Get free stationary!', 'freebee', 2),
+(2, 'Half price desk chairs', '50.00', '25.00', 'chair.jpg', '2001-12-11 11:00:00', '2015-08-13 04:20:39', 'Cheap chairs', 'ch3aps3ats', 1),
+(3, 'New deal', '100.00', '1.00', 'image.jpg', '2014-12-31 23:00:00', '2015-01-01 23:00:00', 'This is my new deal', 'freestuffman', 2);
 
 -- --------------------------------------------------------
 
@@ -424,7 +427,7 @@ MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-MODIFY `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `cities_and_towns`
 --
@@ -434,7 +437,7 @@ MODIFY `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `deals`
 --
 ALTER TABLE `deals`
-MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `locations`
 --

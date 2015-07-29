@@ -137,7 +137,7 @@ class AccountModel extends Model {
 		$originalPrice   = $this->dbc->real_escape_string($_POST['original-price']);
 		$discountedPrice = $this->dbc->real_escape_string($_POST['discounted-price']);
 		$couponCode 	 = $this->dbc->real_escape_string($_POST['coupon-code']);
-		//$image 	 		 = $this->dbc->real_escape_string($_FILES['image']);
+		$image 	 		 = $this->dbc->real_escape_string($_FILES['image']);
 		
 		// Prepare the dates and times
 		$startDate 	= "$startYear-$startMonth-$startDay $startHour:$startMinute:$startSecond";
@@ -149,7 +149,7 @@ class AccountModel extends Model {
 							'$dealName',
 							$originalPrice,
 							$discountedPrice,
-							'image.jpg',
+							'$image',
 							'$startDate',
 							'$endDate',
 							'$description',
@@ -161,6 +161,55 @@ class AccountModel extends Model {
 
 	}
 
+	public function getAllCategories() {
 
+		return $this->dbc->query("SELECT id, category FROM categories");
+
+	}
+
+	public function additionalInfo() {
+
+		// Get userID
+		$userID = $_SESSION['userID'];
+
+		// Query to see if there is existing info in the database
+		$sql = "SELECT FirstName, LastName, ProfileImage, bio
+				FROM users_additional_info
+				WHERE UserID = $userID";
+
+		$result = $this->dbc->query($sql);
+
+		// Filter the user data
+		$firstName = $this->filter($_POST['first-name']);
+		$lastName = $this->filter($_POST['last-name']);
+		$bio = $this->filter($_POST['bio']);
+		$image = $this->filter($_POST['newUserImage']);
+
+		//If there is a rsult do a update
+		if ($result->num_rows == 1 ) {
+			# Update
+			$sql = "UPDATE users_additional_info
+					SET FirstName = '$firstName', 
+						LastName = '$lastName',
+						Bio = '$bio'
+					WHERE UserID = $userID";
+
+		} elseif ( $result->num_rows == 0 ) {
+			# Insert
+			$sql = "INSERT INTO users_additional_info
+					VALUES (NULL, $userID, '$firstName', '$lastName', '$image', '$bio')";
+		}
+
+		//Run the sql
+		$this->dbc->query($sql);
+
+		//If the query failed
+		if( $this->dbc->affected_rows == 1 ) {
+			return true;
+		}
+
+		return false;
+
+	}
 
 }

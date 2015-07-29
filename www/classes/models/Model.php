@@ -11,7 +11,7 @@ class Model {
 	public function __construct() {
 
 		// Connect to the database and save the connection in the property above
-		$this->dbc = new mysqli('localhost', 'root', '', 'cheapo');
+		$this->dbc = new mysqli('localhost', 'root', '', 'cheap');
 
 	}
 
@@ -46,6 +46,16 @@ class Model {
 		$this->title       = $pageData['Title'];
 		$this->description = $pageData['Description'];
 
+	}
+
+	protected function filter($value) {
+		return $this->dbc->real_escape_string( $value );
+	}
+
+	public function getAdditionalInfo() {
+		return $this->dbc->query("	SELECT FirstName, LastName, bio, ProfileImage
+									FROM users_additional_info
+									WHERE UserID =".$_SESSION['userID']);
 	}
 
 

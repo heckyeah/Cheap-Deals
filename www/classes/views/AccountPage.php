@@ -25,12 +25,32 @@ class AccountPage extends Page {
 	private $staffErrorMessage;
 	private $staffSuccessMessage;
 
+	private $newDealDateError;
+	private $totalErrors = 0;
+
+	private $userFirstNameError;
+	private $userLastNameError;
+	private $userBioError;
+	private $userImageError;
+	private $userFirstName;
+	private $userLastName;
+	private $userBio;
+
+	private $userSuccess;
+	private $userFail;
+
+
 	public function __construct($model) {
 		parent::__construct($model);
 
 		// If the user has submitted the password change form
 		if( isset($_POST['existing-password']) ) {
 			$this->processPasswordChange();
+		}
+
+		// If the user is inserting/updating aditional information
+		if( isset($_POST['user-data']) ) {
+			$this->processAdditionalInfo();
 		}
 
 		// If user is an admin
@@ -247,10 +267,108 @@ class AccountPage extends Page {
 	private function processAddDeal() {
 
 		// Validation
+		// Make sure the start date is before the end date
+		$startDate 	= $_POST['start-year'].'-'.$_POST['start-month'].'-'.$_POST['start-day'];
+		$startDate	.= $_POST['start-hour'].':'.$_POST['start-minute'].':'.$_POST['start-second'];
+
+		$endDate 	= $_POST['end-year'].'-'.$_POST['end-month'].'-'.$_POST['end-day'];
+		$endDate	.= $_POST['end-hour'].':'.$_POST['end-minute'].':'.$_POST['end-second'];
+
+		if( new DateTime($startDate) > new DateTime($endDate) ) {
+			$this->newDealDateError = 'End date is before start date';
+			$this->totalErrors++;
+		} elseif ( new DateTime() > new DateTime($endDate) ) {
+			$this->newDealDateError = 'End date is before today';
+			$this->totalErrors++;
+		}
 
 		// Add the deal
-		$this->model->addNewDeal();
+		if($this->totalErrors == 0) {
+			$this->model->addNewDeal();
+		}
 
+	}
+
+	private function processAdditionalInfo() {
+
+		// Validation
+		if( strlen($_POST['first-name']) < 2 ) {
+			$this->userFirstNameError = 'Needs to be at least 2 characters.';
+			$this->totalErrors++;
+		} elseif( strlen($_POST['first-name']) > 20) {
+			$this->userFirstNameError = 'Needs to be at most 20 characters.';
+			$this->totalErrors++;
+		} elseif( !preg_match('/^[a-zA-Z \-]{2,20}$/', $_POST['first-name']) ) {
+			$this->userFirstNameError = 'Can only use characters of the alphabet, spaces and hyphens.';
+			$this->totalErrors++;
+		}
+
+		if( strlen($_POST['last-name']) < 2 ) {
+			$this->userLastNameError = 'Needs to be at least 2 characters.';
+			$this->totalErrors++;
+		} elseif( strlen($_POST['last-name']) > 20) {
+			$this->userLastNameError = 'Needs to be at most 20 characters.';
+			$this->totalErrors++;
+		} elseif( !preg_match('/^[a-zA-Z \-]{2,20}$/', $_POST['last-name']) ) {
+			$this->userLastNameError = 'Can only use characters of the alphabet, spaces and hyphens.';
+			$this->totalErrors++;
+		}
+
+		if( strlen($_POST['last-name']) > 2000) {
+			$this->userBioError = 'Needs to be at most 2000 characters.';
+			$this->totalErrors++;
+		}
+
+		// Attemp to upload the image
+		if( $this->totalErrors == 0 && isset($_FILES['profile-image']) && $_FILES['profile-image']['name'] != '' ) {
+
+			//require image uploader
+			require 'vendor/ImageUploader.php';
+
+			// Create an instance
+			$imageUploader = new ImageUploader();
+
+			// Attemp to upload the file
+			$result = $imageUploader->upload('profile-image', 'img/profile-images/original/');
+
+			// If the upload was a success
+			if ($result) {
+				// Get the file name
+				$imageName = $imageUploader->getImageName();
+
+				// Prepare the variables
+				$fileLocation = "img/profile-images/original/$imageName";
+				$fileDestination = "img/profile-images/avatar/";
+
+				// Make the avatar version
+				$imageUploader->resize($fileLocation, 320, $fileDestination, $imageName);
+
+				// Make icons
+				$fileDestination = "img/profile-images/icon/";
+				$imageUploader->resize($fileLocation, 32, $fileDestination, $imageName);
+
+				$_POST['newUserImage'] = $imageName;
+
+			} else {
+				// Something went wrong
+				$this->userImageError = $imageUploader->errorMessage;
+				$this->totalErrors++;
+			}
+		} elseif ( isset($_FILES['profile-image']) && $_FILES['profile-image']['name'] == '') {
+			$_POST['newUserImage'] = 'default.png';
+		}
+
+
+		if( $this->totalErrors == 0 ) {
+			$result = $this->model->additionalInfo();
+
+			//If the result was good
+			if( $result ) {
+				$this->userSuccess = 'Account has been updated';
+			} else {
+				$this->userFail = 'You have entered the same information';
+			}
+		}	
 	}
 
 }
