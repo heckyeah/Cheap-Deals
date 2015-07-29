@@ -80,6 +80,15 @@ switch( $_GET['page'] ) {
 		$page = new DealPage( $model );
 	break;
 
+	case 'edit-deal':
+
+		require 'classes/views/EditDealPage.php';
+		require 'classes/models/EditDealModel.php';
+
+		$model = new EditDealModel();
+		$page = new EditDealPage( $model );
+	break;
+
 	case 'search':
 
 		require 'classes/views/SearchPage.php';
